@@ -97,14 +97,45 @@ Identify what is causing the problem in the code below (there's only one thing).
 
 ```{r}
 # Example 2:
-mack_creek_vertebrates %>% 
+mack_creek_ex2 <- mack_creek_vertebrates %>% 
   clean_names() %>% 
   filter(species == "ONCL") %>% 
-  ggplot(aes(x = length1, y = weight)) +
-         geom_point(aes(shape = 12), color = "purple") +
+  ggplot(aes(x = length1, y = weight)) +  
+         geom_point(aes(shape = 12), color = "purple") + #error is here
          theme_minimal() +
          labs(x = "Cutthroat trout length (cm)",
               y = "Weight (g)")
+```
+
+
+```{r}
+# create a dataset from mack_creek_vertebrates with only lenght1 and weight 
+
+head(mack_creek_ex2, 5)[,c("species", "length1", "weight")]
+
+datapasta::df_paste(head(mack_creek_ex2, 5)[,c("length1", "weight", "species")])data.frame(
+                                                                                                                                                                                       stringsAsFactors = FALSE,
+                                                                                                     NA,
+                                                                                           length1 = c(58,61,89,58,
+                                                                                                       93),
+                                                                                            weight = c(1.75,1.95,
+                                                                                                       5.6,2.15,6.9),
+                                                                                           species = c("ONCL","ONCL",
+                                                                                                       "ONCL","ONCL",
+                                                                                                       "ONCL")
+                                                                                )
+
+
+my_data2<- data.frame(length1 = c(58,61,89,58,93),weight = c(1.75,1.95,5.6,2.15,6.9), species = c("ONCL","ONCL","ONCL","ONCL", "ONCL"))
+
+# fixed code 
+ex2_plot<- my_data2 %>% 
+  ggplot(aes(x = length1, y = weight)) +  
+         geom_point(aes(shape = species), color = "purple") + #error is here
+         theme_minimal() +
+         labs(x = "Cutthroat trout length (cm)",
+              y = "Weight (g)")
+                                                                     
 ```
 
 ## End
